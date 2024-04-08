@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Customers>
+
+@{
+	ViewBag.Title = "Customers";
+    var message = TempData["Message"] as string;
+}
+
+<div class="wrapper">
+    <div class="content-wrapper">
+        <div class="content">
+	        <div class="container-fluid">
+		        <div class="row">
+			        <div class="col-lg-12">
+                        @if (!string.IsNullOrEmpty(message))
+                        {
+                            <div class="alert alert-success alert-dismissible mt-5">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                @message
+                            </div>
+                        }
+
+                        <div class="mt-3 text-right">
+                            <a asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle-fill"></i>&nbsp; Add New Customer</a>
+                        </div>
+				        <div class="card mt-2">
+                            <div class="card-header border-0">
+                                <h3 class="card-title">Customers</h3>
+                            </div>
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-striped table-valign-middle">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:260px; min-width:250px;">Customer</th>
+                                            <th style="width:320px; min-width:310px;">Address</th>
+                                            <th style="width:320px; min-width:310px;">Website</th>
+                                            <th>Credit Limit</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr onclick="location.href='@Url.Action("Details", "Customer", new { id = item.CustomerId })'">
+                                                 <td>
+                                                     @item.Name
+                                                 </td>
+                                                 <td>
+													 @item.Address
+                                                </td>
+												 <td>
+                                                     <a href="@item.Website">@item.Website</a>
+												</td>
+                                                <td>
+													 @Html.DisplayFor(model => item.CreditLimit)
+                                                </td>
+                                                <td>
+                                                    <a asp-action="Details" asp-route-id="@item.CustomerId" asp-route-isEdit="true" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                                                    <a asp-action="Details" asp-route-id="@item.CustomerId" asp-route-isDelete="true" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+                                                </td>
+                                             </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+    </div>
+</div>
