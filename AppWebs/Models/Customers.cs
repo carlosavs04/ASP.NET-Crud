@@ -20,13 +20,11 @@ namespace AppWebs.Models
         public string? Address { get; set; }
 
         [JsonPropertyName("website")]
-        [Required]
         public string? Website { get; set; }
 
         [JsonPropertyName("credit_limit")]
         [Column("credit_limit")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        [Required]
         public decimal CreditLimit { get; set; }
 
     }
