@@ -24,5 +24,7 @@ namespace AppWebs.Models
 
         public string? ProductName { get; set; }
         public string? WarehouseName { get; set; }
+        public Products? Products { get; set; }
+        public Warehouses? Warehouses { get; set; }
     }
 }

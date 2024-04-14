@@ -22,5 +22,6 @@ namespace AppWebs.Models
         public int LocationId { get; set; }
 
         public string? LocationName { get; set; }
+        public Locations? Locations { get; set; }
     }
 }

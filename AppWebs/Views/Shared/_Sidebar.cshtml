@@ -32,7 +32,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a asp-controller="Contact" asp-action="Index" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Contacts</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Order" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Orders</p>
                             </a>
@@ -49,19 +55,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a asp-controller="Product" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Products</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a asp-controller="Category" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Categories</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a asp-controller="Inventory" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Inventory</p>
                             </a>
@@ -78,27 +84,44 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a asp-controller="Region" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Regions</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a asp-controller="Country" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Countries</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a asp-controller="Location" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Locations</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a asp-controller="Warehouse" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Warehouse</p>
+                                <p>Warehouses</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Employees
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-controller="Employee" asp-action="Index" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Employees</p>
                             </a>
                         </li>
                     </ul>
@@ -107,3 +130,14 @@
         </nav>
     </div>
 </aside>
+
+<script src="/AdminLTE/plugins/jquery/jquery.min.js"></script>
+<script>
+    $('.nav-link').click(function () {
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+        $(this).parents('.nav-item').children('.nav-link').addClass('active');
+        var target = $(this).data('target');
+        $('#' + target).addClass('active');
+    });
+</script>

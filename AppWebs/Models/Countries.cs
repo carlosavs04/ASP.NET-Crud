@@ -23,5 +23,6 @@ namespace AppWebs.Models
         public int RegionId { get; set; }
 
         public string? RegionName { get; set; }
+        public Regions? Regions { get; set; }
     }
 }

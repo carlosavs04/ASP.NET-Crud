@@ -34,5 +34,7 @@ namespace AppWebs.Models
 
         public string? CustomerName { get; set; }
         public string? SalesmanName { get; set; }
+        public Customers? Customers { get; set; }
+        public Employees? Employees { get; set; }
     }
 }
