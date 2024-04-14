@@ -22,6 +22,11 @@ namespace AppWebs.Data
         public DbSet<Warehouses> Warehouses { get; set; }
         public DbSet<Employees> Employees { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Inventories>().HasNoKey();
+        }
+
         [DbFunction(Schema = "dbo")]
         public static int fn_ProductCategory_count(int pCategoryId)
         {
