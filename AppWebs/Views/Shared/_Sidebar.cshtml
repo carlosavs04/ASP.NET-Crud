@@ -17,7 +17,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Customers
@@ -26,7 +26,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-controller="Customer" asp-action="Index" class="nav-link active">
+                            <a asp-controller="Customer" asp-action="Index" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Customers</p>
                             </a>
@@ -133,11 +133,27 @@
 
 <script src="/AdminLTE/plugins/jquery/jquery.min.js"></script>
 <script>
-    $('.nav-link').click(function () {
-        $('.nav-link').removeClass('active');
-        $(this).addClass('active');
-        $(this).parents('.nav-item').children('.nav-link').addClass('active');
-        var target = $(this).data('target');
-        $('#' + target).addClass('active');
+    $(document).ready(function () {
+        if (window.location.pathname === '' || window.location.pathname === undefined || window.location.pathname === null || window.location.pathname === 'Home/Contact') {
+            localStorage.removeItem('activeMenuItemUrl');
+        }
+
+        var activeItemUrl = localStorage.getItem('activeMenuItemUrl');
+        if (activeItemUrl) {
+            $('.nav-link').removeClass('active');
+            $('.nav-link[href="' + activeItemUrl + '"]').addClass('active');
+            $('.nav-link[href="' + activeItemUrl + '"]').parents('.nav-item').children('.nav-link').addClass('active');
+            $('.nav-link[href="' + activeItemUrl + '"]').addClass('active');
+        }
+
+        $('.nav-link').click(function () {
+            $('.nav-link').removeClass('active');
+            $(this).addClass('active');
+            $(this).parents('.nav-item').children('.nav-link').addClass('active');
+            var target = $(this).data('target');
+            $('#' + target).addClass('active');
+
+            localStorage.setItem('activeMenuItemUrl', $(this).attr('href'));
+        });
     });
 </script>

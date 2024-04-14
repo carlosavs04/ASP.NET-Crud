@@ -23,6 +23,7 @@ namespace AppWebs.Models
 
         [JsonPropertyName("email")]
         [Required]
+        [EmailAddress]
         public string? Email { get; set; }
 
         [JsonPropertyName("phone")]

@@ -1,44 +1,48 @@
 ﻿using AppWebs.Data;
 using AppWebs.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppWebs.Controllers
 {
-    public class CustomerController : Controller
+    public class ContactController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CustomerController(ApplicationDbContext context)
+        public ContactController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Customers> customers = _context.Customers;
-            return View(customers);
+            IEnumerable<Contacts> contacts = _context.Contacts.Include(c => c.Customers).ToList();
+            return View(contacts);
         }
 
         public IActionResult Create()
         {
+            var customers = _context.Customers.ToList();
+            ViewBag.Customers = new SelectList(customers, "CustomerId", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Customers customer)
+        public IActionResult Create(Contacts contact)
         {
-           if (ModelState.IsValid)
-           {
-                _context.Customers.Add(customer);
+            if (ModelState.IsValid)
+            {
+                _context.Contacts.Add(contact);
                 _context.SaveChanges();
 
-                TempData["Message"] = "Customer created successfully";
+                TempData["Message"] = "Contact created successfully";
 
                 return RedirectToAction("Index");
-           }
+            }
 
-           return View();
+            return View();
         }
 
         public IActionResult Details(int? id, bool isEdit = false, bool isDelete = false)
@@ -47,15 +51,15 @@ namespace AppWebs.Controllers
             {
                 return NotFound();
             }
-            var customer = _context.Customers.Find(id);
-            if (customer == null)
+            var contact = _context.Contacts.Include(c => c.Customers).FirstOrDefault(c => c.ContactId == id);
+            if (contact == null)
             {
                 return NotFound();
             }
             ViewBag.IsEdit = isEdit;
             ViewBag.IsDelete = isDelete;
 
-            return View(customer);
+            return View(contact);
         }
 
         public IActionResult Edit(int? id)
@@ -64,25 +68,27 @@ namespace AppWebs.Controllers
             {
                 return NotFound();
             }
-            var customer = _context.Customers.Find(id);
-            if (customer == null)
+            var contact = _context.Contacts.Find(id);
+            if (contact == null)
             {
                 return NotFound();
             }
- 
-            return View(customer);
+            var customers = _context.Customers.ToList();
+            ViewBag.Customers = new SelectList(customers, "CustomerId", "Name", contact.CustomerId);
+
+            return View(contact);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Customers customer)
+        public IActionResult Edit(Contacts contact)
         {
             if (ModelState.IsValid)
             {
-                _context.Customers.Update(customer);
+                _context.Contacts.Update(contact);
                 _context.SaveChanges();
 
-                TempData["Message"] = "Customer updated successfully";  
+                TempData["Message"] = "Contact updated successfully";
 
                 return RedirectToAction("Index");
             }
@@ -90,24 +96,22 @@ namespace AppWebs.Controllers
             return View();
         }
 
-        public IActionResult DeleteCustomer(int? id)
+        public IActionResult DeleteContact(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            var customer = _context.Customers.Find(id);
-            if (customer == null)
+            var contact = _context.Contacts.Find(id);
+            if (contact == null)
             {
                 return NotFound();
             }
-            _context.Customers.Remove(customer);
+            _context.Contacts.Remove(contact);
             _context.SaveChanges();
-            TempData["Message"] = "Customer deleted successfully";
+            TempData["Message"] = "Contact deleted successfully";
 
             return RedirectToAction("Index");
         }
     }
-
-
 }
