@@ -35,7 +35,6 @@ namespace AppWebs.Models
         [Required]
         public int CategoryId { get; set; }
 
-        public string? CategoryName { get; set; }
         public Product_Categories? Product_Categories { get; set; }
     }
 }

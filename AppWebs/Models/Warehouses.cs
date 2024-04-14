@@ -21,7 +21,6 @@ namespace AppWebs.Models
         [Column("location_id")]
         public int LocationId { get; set; }
 
-        public string? LocationName { get; set; }
         public Locations? Locations { get; set; }
     }
 }

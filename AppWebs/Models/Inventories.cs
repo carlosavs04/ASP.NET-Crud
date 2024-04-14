@@ -22,8 +22,6 @@ namespace AppWebs.Models
         [Required]
         public int WarehouseId { get; set; }
 
-        public string? ProductName { get; set; }
-        public string? WarehouseName { get; set; }
         public Products? Products { get; set; }
         public Warehouses? Warehouses { get; set; }
     }

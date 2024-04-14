@@ -34,7 +34,6 @@ namespace AppWebs.Models
         [Column("customer_id")]
         public int CustomerId { get; set; }
 
-        public string? CustomerName { get; set; }
         public Customers? Customers { get; set; }
     }
 }

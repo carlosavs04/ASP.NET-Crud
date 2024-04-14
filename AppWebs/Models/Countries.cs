@@ -22,7 +22,6 @@ namespace AppWebs.Models
         [Column("region_id")]
         public int RegionId { get; set; }
 
-        public string? RegionName { get; set; }
         public Regions? Regions { get; set; }
     }
 }
