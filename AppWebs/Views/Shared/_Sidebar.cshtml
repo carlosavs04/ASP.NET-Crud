@@ -16,7 +16,7 @@
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item menu-open">
+                <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
@@ -136,6 +136,7 @@
     $(document).ready(function () {
         if (window.location.pathname === '' || window.location.pathname === undefined || window.location.pathname === null || window.location.pathname === 'Home/Contact') {
             localStorage.removeItem('activeMenuItemUrl');
+            localStorage.removeItem('activeMenuOpenItemUrl');
         }
 
         var activeItemUrl = localStorage.getItem('activeMenuItemUrl');
@@ -144,6 +145,11 @@
             $('.nav-link[href="' + activeItemUrl + '"]').addClass('active');
             $('.nav-link[href="' + activeItemUrl + '"]').parents('.nav-item').children('.nav-link').addClass('active');
             $('.nav-link[href="' + activeItemUrl + '"]').addClass('active');
+
+            var activeMenuOpenItemUrl = localStorage.getItem('activeMenuOpenItemUrl');
+            if (activeMenuOpenItemUrl) {
+                $('.nav-link[href="' + activeMenuOpenItemUrl + '"]').parents('.nav-item').addClass('menu-open');
+            }
         }
 
         $('.nav-link').click(function () {
@@ -154,6 +160,7 @@
             $('#' + target).addClass('active');
 
             localStorage.setItem('activeMenuItemUrl', $(this).attr('href'));
+            localStorage.setItem('activeMenuOpenItemUrl', $(this).closest('.nav-item').find('> .nav-link').attr('href'));
         });
     });
 </script>

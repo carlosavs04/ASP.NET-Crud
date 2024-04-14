@@ -31,7 +31,7 @@ namespace AppWebs.Models
         [ForeignKey("Countries")]
         [JsonPropertyName("country_id")]
         [Column("country_id")]
-        public int CountryId { get; set; }
+        public string? CountryId { get; set; }
 
         public Countries? Countries { get; set; }
     }

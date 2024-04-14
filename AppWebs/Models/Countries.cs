@@ -9,7 +9,9 @@ namespace AppWebs.Models
         [Key]
         [JsonPropertyName("country_id")]
         [Column("country_id")]
-        public int CountryId { get; set; }
+        [Required]
+        [MaxLength(2)]
+        public string? CountryId { get; set; }
 
         [JsonPropertyName("country_name")]
         [Column("country_name")]
