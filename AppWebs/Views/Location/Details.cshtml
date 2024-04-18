@@ -1,0 +1,45 @@
+﻿
+@model Locations
+@{
+    ViewBag.Title = "Locations Details";
+}
+
+<div class="wrapper">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card mt-5">
+                            <div class="card-header border-0">
+                                <div class="card-header border-0 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h2>@Html.DisplayFor(model => model.Address)</h2>
+                                        <p class="lead mb-5">
+                                            <strong>PostalCode</strong>: @Html.DisplayFor(model => model.PostalCode) <br>
+                                            <strong>City</strong>: @Html.DisplayFor(model => model.City)<br>
+                                            <strong>State</strong>: @Html.DisplayFor(model => model.State)<br>
+                                            <strong>Country</strong>: @Html.DisplayFor(model => model.Countries.CountryName)
+                                        </p>
+                                        <a asp-action="Index" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i>&nbsp; Back to list</a>
+                                    </div>
+                                    @if (ViewBag.isEdit)
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@Model.LocationId" class="btn btn-primary"><i class="bi bi-pencil-square"></i>&nbsp; Edit</a>
+                                    }
+                                    @if (ViewBag.isDelete)
+                                    {
+                                        <div class="text-center">
+                                            <p>Are you sure you want to delete this record?</p>
+                                            <a asp-action="DeleteLocation" asp-route-id="@Model.LocationId" class="btn btn-danger"><i class="bi bi-trash-fill"></i>&nbsp; Delete</a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
