@@ -1,7 +1,6 @@
-﻿
-@model Locations
+﻿@model Locations
 @{
-    ViewBag.Title = "Locations Details";
+    ViewBag.Title = "Location Details";
 }
 
 <div class="wrapper">
@@ -16,10 +15,10 @@
                                     <div>
                                         <h2>@Html.DisplayFor(model => model.Address)</h2>
                                         <p class="lead mb-5">
-                                            <strong>PostalCode</strong>: @Html.DisplayFor(model => model.PostalCode) <br>
+                                            <strong>Postal Code</strong>: @Html.DisplayFor(model => model.PostalCode) <br>
                                             <strong>City</strong>: @Html.DisplayFor(model => model.City)<br>
                                             <strong>State</strong>: @Html.DisplayFor(model => model.State)<br>
-                                            <strong>Country</strong>: @Html.DisplayFor(model => model.Countries.CountryName)
+                                            <strong>Country</strong>: @(Model.Countries != null ? Model.Countries.CountryName : "Empty")
                                         </p>
                                         <a asp-action="Index" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i>&nbsp; Back to list</a>
                                     </div>

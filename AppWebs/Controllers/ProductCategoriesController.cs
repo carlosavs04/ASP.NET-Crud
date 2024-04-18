@@ -33,7 +33,7 @@ namespace AppWebs.Controllers
                 _context.Product_Categories.Add(categories);
                 _context.SaveChanges();
 
-                TempData["Message"] = "Customer created successfully";
+                TempData["Message"] = "Category created successfully";
 
                 return RedirectToAction("Index");
            }
@@ -82,7 +82,7 @@ namespace AppWebs.Controllers
                 _context.Product_Categories.Update(categories);
                 _context.SaveChanges();
 
-                TempData["Message"] = "Customer updated successfully";  
+                TempData["Message"] = "Category updated successfully";  
 
                 return RedirectToAction("Index");
             }
@@ -103,7 +103,7 @@ namespace AppWebs.Controllers
             }
             _context.Product_Categories.Remove(categories);
             _context.SaveChanges();
-            TempData["Message"] = "Customer deleted successfully";
+            TempData["Message"] = "Category deleted successfully";
 
             return RedirectToAction("Index");
         }

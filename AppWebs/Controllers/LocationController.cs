@@ -34,14 +34,6 @@ namespace AppWebs.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_context.Locations.Any(l => l.LocationId == location.LocationId))
-                {
-                    ModelState.AddModelError("LocationId", "Location Id already exists");
-                    var countries = _context.Countries.ToList();
-                    ViewBag.Countries = new SelectList(countries,"CountryId", "CountryName");
-                    return View();
-                }
-
                 _context.Locations.Add(location);
                 _context.SaveChanges();
 
@@ -85,7 +77,7 @@ namespace AppWebs.Controllers
             }
 
             var countries = _context.Countries.ToList();
-            ViewBag.Countries = new SelectList(countries, "CountryId", "CountryName");
+            ViewBag.Countries = new SelectList(countries, "CountryId", "CountryName", location.CountryId);
 
             return View(location);
         }
