@@ -31,7 +31,7 @@ public class OrdersController : Controller
 
             var employees = _context.Employees.Select(e => new SelectListItem
             {
-                Text = e.FirstName,
+                Text = e.FirstName + " " + e.LastName,
                 Value = e.EmployeeId.ToString()
             }).ToList();
 
@@ -100,7 +100,7 @@ public class OrdersController : Controller
 
             var employees = _context.Employees.Select(e => new SelectListItem
             {
-                Text = e.FirstName,
+                Text = e.FirstName + " " + e.LastName,
                 Value = e.EmployeeId.ToString()
             }).ToList();
 

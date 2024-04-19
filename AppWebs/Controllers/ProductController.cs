@@ -17,27 +17,27 @@ namespace AppWebs.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Products> contacts = _context.Products.Include(c => c.Product_Categories).ToList();
-            return View(contacts);
+            IEnumerable<Products> products = _context.Products.Include(c => c.Product_Categories).ToList();
+            return View(products);
         }
 
         public IActionResult Create()
         {
-            var customers = _context.Products.ToList();
-            ViewBag.Products = new SelectList(customers, "ProductId", "Name");
+            var categories = _context.Product_Categories.ToList();
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Products contact)
+        public IActionResult Create(Products product)
         {
             if (ModelState.IsValid)
             {
-                _context.Products.Add(contact);
+                _context.Products.Add(product);
                 _context.SaveChanges();
 
-                TempData["Message"] = "Contact created successfully";
+                TempData["Message"] = "Product created successfully";
 
                 return RedirectToAction("Index");
             }
@@ -68,27 +68,27 @@ namespace AppWebs.Controllers
             {
                 return NotFound();
             }
-            var contact = _context.Products.Find(id);
-            if (contact == null)
+            var product = _context.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            var customers = _context.Products.ToList();
-            ViewBag.Products = new SelectList(customers, "ProductId", "Name");  
+            var categories = _context.Product_Categories.ToList();
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName", product.CategoryId);
 
-            return View(contact);
+            return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Products contact)
+        public IActionResult Edit(Products product)
         {
             if (ModelState.IsValid)
             {
-                _context.Products.Update(contact);
+                _context.Products.Update(product);
                 _context.SaveChanges();
 
-                TempData["Message"] = "Contact updated successfully";
+                TempData["Message"] = "Product updated successfully";
 
                 return RedirectToAction("Index");
             }
@@ -102,14 +102,14 @@ namespace AppWebs.Controllers
             {
                 return NotFound();
             }
-            var contact = _context.Products.Find(id);
-            if (contact == null)
+            var product = _context.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            _context.Products.Remove(contact);
+            _context.Products.Remove(product);
             _context.SaveChanges();
-            TempData["Message"] = "Contact deleted successfully";
+            TempData["Message"] = "Product deleted successfully";
 
             return RedirectToAction("Index");
         }

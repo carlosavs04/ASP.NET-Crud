@@ -31,7 +31,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="StandardCost">Standard Cost</label>
-                                                <input asp-for="StandardCost" type="text" class="form-control" />
+                                                <input asp-for="StandardCost" type="number" class="form-control" />
                                                 <span asp-validation-for="StandardCost" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">
@@ -41,7 +41,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="CategoryId">Category</label>
-                                                <input for="CategoryId" type="text" class="form-control" />"
+                                                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
                                                 <span asp-validation-for="CategoryId" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">

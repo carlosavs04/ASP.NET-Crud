@@ -1,6 +1,6 @@
 ﻿@model Products
 @{
-    ViewBag.Title = "Products Details";
+    ViewBag.Title = "Product Details";
 }
 
 <div class="wrapper">
@@ -17,8 +17,8 @@
                                         <p class="lead mb-5">
                                             <strong>Description</strong>: @Html.DisplayFor(model => model.Description) <br>
                                             <strong>Standar Cost</strong>: @Html.DisplayFor(model => model.StandardCost) <br>
-                                            <strong>List Price</strong> : @Html.DisplayFor(model => model.ListPrice) <br>
-                                            <strong>Category</strong> : @(Model.Product_Categories != null ? Model.Product_Categories.CategoryName : "Empty")
+                                            <strong>List Price</strong>: @Html.DisplayFor(model => model.ListPrice) <br>
+                                            <strong>Category</strong>: @(Model.Product_Categories != null ? Model.Product_Categories.CategoryName : "Empty")
                                         </p>
                                         <a asp-action="Index" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i>&nbsp; Back to list</a>
                                     </div>
