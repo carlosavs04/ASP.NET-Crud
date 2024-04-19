@@ -79,7 +79,7 @@ namespace AppWebs.Controllers
             }
 
             var locations = _context.Locations.ToList();
-            ViewBag.Locations = new SelectList(locations, "LocationId", "City");
+            ViewBag.Locations = new SelectList(locations, "LocationId", "City", warehouse.LocationId);
 
             return View(warehouse);
         }
@@ -115,7 +115,7 @@ namespace AppWebs.Controllers
 
             _context.Warehouses.Remove(warehouse);
             _context.SaveChanges();
-            TempData["Message"] = "Location deleted successfully";
+            TempData["Message"] = "Warehouse deleted successfully";
             return RedirectToAction("Index");
         }
     }

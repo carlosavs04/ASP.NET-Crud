@@ -1,0 +1,60 @@
+﻿@model Products
+@{
+    ViewBag.Title = "Edit Product";
+}
+
+<div class="wrapper">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mt-3 text-right">
+                            <a asp-action="Details" asp-route-id="@Model.ProductId" asp-route-isEdit="true" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i>&nbsp; Back to details</a>
+                        </div>
+                        <div class="card mt-2">
+                            <div class="card-header border-0">
+                                <div class="card-header border-0 d-flex justify-content-center align-items-center">
+                                    <div class="col-10">
+                                        <form asp-action="Edit">
+                                            <input type="hidden" asp-for="ProductId" />
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-group">
+                                                <label for="ProductName">Product Name</label>
+                                                <input asp-for="ProductName" type="text" class="form-control" />
+                                                <span asp-validation-for="ProductName" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Description">Description</label>
+                                                <input asp-for="Description" type="text" class="form-control" />
+                                                <span asp-validation-for="Description" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="StandardCost">Standard Cost</label>
+                                                <input asp-for="StandardCost" type="number" class="form-control" />
+                                                <span asp-validation-for="StandardCost" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="ListPrice">List Price</label>
+                                                <input asp-for="ListPrice" type="number" class="form-control" />
+                                                <span asp-validation-for="ListPrice" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="CategoryId">Category</label>
+                                                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+                                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" class="btn btn-primary" value="Edit contact">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

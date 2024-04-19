@@ -6,38 +6,38 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AppWebs.Controllers
 {
-    public class LocationController : Controller
+    public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public LocationController(ApplicationDbContext context)
+        public ProductController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Locations> locations = _context.Locations.Include(l => l.Countries).ToList();
-            return View(locations);
+            IEnumerable<Products> products = _context.Products.Include(c => c.Product_Categories).ToList();
+            return View(products);
         }
 
         public IActionResult Create()
         {
-            var countries = _context.Countries.ToList();
-            ViewBag.Countries = new SelectList(countries, "CountryId", "CountryName");
+            var categories = _context.Product_Categories.ToList();
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Locations location)
+        public IActionResult Create(Products product)
         {
             if (ModelState.IsValid)
             {
-                _context.Locations.Add(location);
+                _context.Products.Add(product);
                 _context.SaveChanges();
 
-                TempData["Message"] = "Location created successfully";
+                TempData["Message"] = "Product created successfully";
 
                 return RedirectToAction("Index");
             }
@@ -51,15 +51,15 @@ namespace AppWebs.Controllers
             {
                 return NotFound();
             }
-            var location = _context.Locations.Include(c => c.Countries).FirstOrDefault(l => l.LocationId == id);
-            if (location == null)
+            var product = _context.Products.Include(c => c.Product_Categories).FirstOrDefault(c => c.ProductId == id);
+            if (product == null)
             {
                 return NotFound();
             }
             ViewBag.IsEdit = isEdit;
             ViewBag.IsDelete = isDelete;
 
-            return View(location);
+            return View(product);
         }
 
         public IActionResult Edit(int? id)
@@ -68,30 +68,27 @@ namespace AppWebs.Controllers
             {
                 return NotFound();
             }
-
-            var location= _context.Locations.Find(id);
-
-            if (location == null)
+            var product = _context.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
+            var categories = _context.Product_Categories.ToList();
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName", product.CategoryId);
 
-            var countries = _context.Countries.ToList();
-            ViewBag.Countries = new SelectList(countries, "CountryId", "CountryName", location.CountryId);
-
-            return View(location);
+            return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Locations locations)
+        public IActionResult Edit(Products product)
         {
             if (ModelState.IsValid)
             {
-                _context.Locations.Update(locations);
+                _context.Products.Update(product);
                 _context.SaveChanges();
 
-                TempData["Message"] = "Location updated successfully";
+                TempData["Message"] = "Product updated successfully";
 
                 return RedirectToAction("Index");
             }
@@ -99,21 +96,21 @@ namespace AppWebs.Controllers
             return View();
         }
 
-        public IActionResult DeleteLocation(int? id)
+        public IActionResult DeleteProduct(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            var location = _context.Locations.Find(id);
-            if (location == null)
+            var product = _context.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
-
-            _context.Locations.Remove(location);
+            _context.Products.Remove(product);
             _context.SaveChanges();
-            TempData["Message"] = "Location deleted successfully";
+            TempData["Message"] = "Product deleted successfully";
+
             return RedirectToAction("Index");
         }
     }
