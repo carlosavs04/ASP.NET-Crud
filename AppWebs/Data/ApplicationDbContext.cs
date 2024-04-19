@@ -24,7 +24,7 @@ namespace AppWebs.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Inventories>().HasNoKey();
+            modelBuilder.Entity<Inventories>().HasKey(i => new { i.ProductId, i.WarehouseId });
         }
 
         [DbFunction(Schema = "dbo")]

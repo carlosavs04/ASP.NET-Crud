@@ -29,23 +29,27 @@
                                 <table class="table table-striped table-valign-middle">
                                     <thead>
                                         <tr>
-                                            <th style="width:40%; min-width:130px;">Product</th>
-                                            <th style="width:40%; min-width:130px;">Warehouse</th>
+                                            <th style="width:30%;">Product</th>
+                                            <th style="width:30%;">Warehouse</th>
                                             <th style="width:20%">Quantity</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                            <tr>
+                                            <tr onclick="location.href='@Url.Action("Details", "Inventory", new { productId = item.ProductId, warehouseId = item.WarehouseId })'">
                                                 <td>
-                                                    @item.Products.ProductName
+                                                    @(item.Products != null ? item.Products.ProductName : "Empty")
                                                 </td>
                                                 <td>
-                                                    @item.Warehouses.WarehouseName
+                                                    @(item.Warehouses != null ? item.Warehouses.WarehouseName : "Empty")
                                                 </td>
                                                 <td>
-                                                    @item.Quantity
+                                                    @Html.DisplayFor(model => item.Quantity)
+                                                </td>
+                                                <td>
+                                                    <a asp-action="Details" asp-route-productId="@item.ProductId" asp-route-warehouseId="@item.WarehouseId" asp-route-isDelete="true" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
                                                 </td>
                                             </tr>
                                         }

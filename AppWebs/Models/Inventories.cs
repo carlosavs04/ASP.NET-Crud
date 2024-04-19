@@ -8,6 +8,7 @@ namespace AppWebs.Models
     {
         [JsonPropertyName("quantity")]
         [Required]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int Quantity { get; set; }
 
         [ForeignKey("Products")]

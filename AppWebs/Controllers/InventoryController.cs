@@ -32,19 +32,59 @@ namespace AppWebs.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Inventories inventories)
+        public async Task<ActionResult<Inventories>> CreateOrUpdate(Inventories inventories)
         {
-            if (ModelState.IsValid)
-            {
+            var inventory = await _context.Inventories.FirstOrDefaultAsync(i => i.ProductId == inventories.ProductId && i.WarehouseId == inventories.WarehouseId);
 
+            if (inventory != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    _context.Entry(inventory).CurrentValues.SetValues(inventories);
+                    await _context.SaveChangesAsync();
+                    TempData["Message"] = "Inventory updated successfully";
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
                     _context.Inventories.Add(inventories);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     TempData["Message"] = "Inventory created successfully";
                     return RedirectToAction("Index");
-                
+                }
             }
 
             return View();
+        }
+
+        public async Task<ActionResult<Inventories>> Details(int productId, int warehouseId, bool isDelete = false)
+        {
+            var inventory = await _context.Inventories.Include(w => w.Warehouses).Include(p => p.Products).FirstOrDefaultAsync(i => i.ProductId == productId && i.WarehouseId == warehouseId);
+            
+            if (inventory == null)
+            {
+                return NotFound();
+            }
+            ViewBag.IsDelete = isDelete;
+
+            return View(inventory);
+        }
+
+        public async Task<ActionResult<Inventories>> DeleteInventory(int productId, int warehouseId)
+        {
+           var inventory = await _context.Inventories.FirstOrDefaultAsync(i => i.ProductId == productId && i.WarehouseId == warehouseId);
+           if (inventory == null)
+            {
+               return NotFound();
+           }
+           _context.Inventories.Remove(inventory);
+            await _context.SaveChangesAsync();
+            TempData["Message"] = "Inventory deleted successfully";
+
+            return RedirectToAction("Index");
         }
     }
 }

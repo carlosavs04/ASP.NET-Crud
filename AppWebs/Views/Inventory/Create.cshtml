@@ -1,6 +1,6 @@
 ﻿@model Inventories
 @{
-    ViewBag.Title = "Create Inventory";
+    ViewBag.Title = "Add Inventory";
 }
 
 <div class="wrapper">
@@ -13,7 +13,7 @@
                             <div class="card-header border-0">
                                 <div class="card-header border-0 d-flex justify-content-center align-items-center">
                                     <div class="col-10">
-                                        <form asp-action="Create">
+                                        <form asp-action="CreateOrUpdate">
                                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                             <div class="form-group">
                                                 <label for="ProductId">Product</label>
