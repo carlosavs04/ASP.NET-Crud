@@ -1,0 +1,72 @@
+﻿@model Orders
+
+@{
+    ViewBag.Title = "Edit Order";
+
+    var customers = ViewBag.Customers as List<SelectListItem>; // Assuming List<SelectListItem>
+    var employees = ViewBag.Employees as List<SelectListItem>;  // Assuming List<SelectListItem>
+}
+
+<div class="wrapper">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card mt-5">
+                            <div class="card-header border-0">
+                                <div class="card-header border-0 d-flex justify-content-center align-items-center">
+                                    <div class="col-10">
+                                        <form asp-action="Edit" asp-route-id="@Model.OrderId">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <input type="hidden" asp-for="OrderId" />
+                                            <div class="form-group">
+                                                <label for="Status">Status</label>
+                                                <input asp-for="Status" type="text" class="form-control" />
+                                                <span asp-validation-for="Status" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="OrderDate">Order Date</label>
+                                                <input asp-for="OrderDate" type="date" class="form-control" />
+                                                <span asp-validation-for="OrderDate" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="CustomerId">Customer</label>
+                                                <select asp-for="CustomerId" class="form-control">
+                                                    @if (customers != null)
+                                                    {
+                                                    foreach (var customer in customers)
+                                                    {
+                                                    <option value="@customer.Value">@customer.Text</option>
+                                                    }
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="CustomerId" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="SalesmanId">Salesman</label>
+                                                <select asp-for="SalesmanId" class="form-control">
+                                                    @if (employees != null)
+                                                    {
+                                                    foreach (var employee in employees)
+                                                    {
+                                                    <option value="@employee.Value">@employee.Text</option>
+                                                    }
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="SalesmanId" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" class="btn btn-primary" value="Save Changes">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
